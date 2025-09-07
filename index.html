@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Pookkalam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #0D4C3A;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .title {
+      font-size: 2.5em;
+      color: #fffdd0;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .malayalam {
+      font-family: 'Manjari', sans-serif;
+      font-weight: 700;
+    }
+    .english {
+      font-family: 'Baloo 2', cursive;
+      font-weight: 700;
+    }
+    canvas {
+      background: #fff8e7;
+      border-radius: 50%;
+      box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.8),
+                 0px 0px 40px rgba(255, 253, 208, 0.4);
+      margin: 20px 0;
+    }
+    .footer {
+      color: #666;
+      margin-top: 20px;
+      font-size: 0.6em;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+  <div class="title">
+    <span class="malayalam">കോ</span><span class="english">de</span>
+    <span class="malayalam"> എ പൂ</span><span class="english">kka</span><span class="malayalam">ളം</span>
+  </div>
+  <canvas id="pookkalam" width="375" height="375"></canvas>
+  <div class="footer">© Pookkalam by Anaya Wilson</div>
+
+  <script>
+    const canvas = document.getElementById("pookkalam");
+    const ctx = canvas.getContext("2d");
+    const w = canvas.width;
+    const h = canvas.height;
+    const centerX = w / 2;
+    const centerY = h / 2;
+
+    function drawCircle(radius, color) {
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+
+    
+    
+    function drawFlower(radius, petalCount, colors) {
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (2 * Math.PI / petalCount) * i;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.arc(x, y, radius / 4, 0, 2 * Math.PI);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+      }
+    }
+    function drawFlower4(radius, petalCount, colors) {
+      // For 12-pointed star, the angle between points is Math.PI/6
+      // To center between points, offset by Math.PI/24
+      const startAngle = Math.PI / 24;
+      for (let i = 0; i < petalCount; i++) {
+        const angle = startAngle + (2 * Math.PI / petalCount) * i;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.arc(x, y, radius / 4, 0, 2 * Math.PI);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+      }
+    }
+
+    function drawFlower1(radius, petalCount, colors) {
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (2 * Math.PI / petalCount) * i;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.arc(x, y, radius / 8, 0, 2 * Math.PI);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+      }
+    }
+    function drawFlower2(radius, petalCount, colors) {
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (2 * Math.PI / petalCount) * i;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.arc(x, y, radius / 5, 0, 2 * Math.PI);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+      }
+    }
+    function drawFlower3(radius, petalCount, colors) {
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (2 * Math.PI / petalCount) * i;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.arc(x, y, radius / 3.5, 0, 2 * Math.PI);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+      }
+    }
+
+    function drawStar(radius, spikes, color1, color2, startAngle = Math.PI / 2 * 3) {
+      let rot = startAngle;
+      let x = centerX;
+      let y = centerY;
+      let step = Math.PI / spikes;
+
+      for (let i = 0; i < spikes; i++) {
+        // Calculate points for the triangle
+        let x1 = centerX + Math.cos(rot) * radius;
+        let y1 = centerY + Math.sin(rot) * radius;
+        let x2 = centerX + Math.cos(rot + step) * (radius / 2);
+        let y2 = centerY + Math.sin(rot + step) * (radius / 2);
+        let x3 = centerX + Math.cos(rot + step * 2) * radius;
+        let y3 = centerY + Math.sin(rot + step * 2) * radius;
+        
+        // First half of the triangle
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
+        ctx.fillStyle = color1;
+        ctx.fill();
+
+        // Second half of the triangle
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(x2, y2);
+        ctx.lineTo(x3, y3);
+        ctx.closePath();
+        ctx.fillStyle = color2;
+        ctx.fill();
+
+        rot += step * 2;
+      }
+    }
+
+    // drawCircle(190, "#000000");
+
+    
+    drawFlower2(200, 12, ["#c0392b"]); //red
+    drawFlower1(195, 12, ["#fffdd0"]); //cream
+    drawCircle(160, "#f1c40f"); //pink
+    drawCircle(135, "#f33a6a"); //yellow
+    drawStar(160, 12, "#000000", "#ffffff");
+    drawStar(160, 12, "#ffffff", "#000000", Math.PI / 8);
+    drawCircle(115, "#c0392b"); //red
+    drawFlower3(90, 12, ["#000000"]); //black
+    drawFlower(90, 12, ["#f1c40f"]); //pink
+    drawFlower2(90, 12, ["#f33a6a"]); //yellow
+    drawFlower1(90, 12, ["#fffdd0"]); //cream
+    drawCircle(92, "#000000");
+    drawCircle(90, "#006400");
+    drawStar(90, 8, "#f1c40f", "#f33a6a");
+    drawStar(90, 8, "#000000", "#000000", Math.PI / 8);
+    drawStar(80, 8, "#c0392b", "#c0392b", Math.PI / 8);
+    drawStar(65, 8, "#f39c12", "#f39c12", Math.PI / 8);
+    drawStar(50, 8, "#FFD700", "#FFD700", Math.PI / 8);
+    drawStar(40, 8, "#fffdd0", "#fffdd0", Math.PI / 8);  //yellow star, offset
+    drawStar(37, 8, "#000000", "#000000");  // outer black star
+    drawStar(35, 8, "#f39c12", "#FF0000");  // orange-red star
+    drawCircle(16, "#000000");              // black
+    drawCircle(15, "#fffdd0");              // cream
+    drawFlower(10, 12, ["#f33a6a"]);        // pink
+    drawCircle(5, "#f1c40f");               // yellow
+    drawCircle(2, "#c0392b");             // red
+    
+  </script>
+</body>
+</html>

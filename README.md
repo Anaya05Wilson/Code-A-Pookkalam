@@ -4,14 +4,12 @@
 
 
 ## Basic Details
-### Team Name: [Name]
-
 
 ### Team Members
-- Team Lead: [Name] - [College]
+- Team Lead: Anaya Wilson - SSET
 
 ### Project Description
-[2-3 lines about what your project does]
+This is a pookkalam designed using HTML, CSS and Javascript
 
 
 ## Technical Details
